@@ -4,11 +4,14 @@
  * defines function kabsch
  */
 
-type Point = [number, number, number];
-type PointSet = Point[];
+
+import { PointSet } from "./typeDefinitions";
+import { getCentroid } from "./helper";
 
 export function kabsch(setA: PointSet, setB: PointSet) {
   console.log(setA, setB);
+  console.log(getCentroid(setA), getCentroid(setB));
 }
+
 
 kabsch([[0, 1, 2]], [[0, 1, 2]]);

@@ -1,13 +1,13 @@
-import type { Config } from '@jest/types';
+// jest.config.ts
+import type { InitialOptionsTsJest } from 'ts-jest'
 
-const config: Config.InitialOptions = {
-  verbose: true,
-  rootDir: '',
-  testRegex: './test/*.test.ts',
-  collectCoverage: true,
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-  },
-};
-
-export default config;
+const config: InitialOptionsTsJest = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+  globals: {
+    'ts-jest': {
+      // ts-jest configuration goes here
+    },
+  }
+}
+export default config
