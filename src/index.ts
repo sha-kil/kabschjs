@@ -9,10 +9,14 @@ import { Point, PointSet } from "./typeDefinitions";
 import { getCentroid } from "./helper";
 import { SVD } from 'svd-js';
 import {
+  add as matrixAdd,
   subtract as matrixSubtract,
   transpose,
   multiply as matrixMultiply,
   dotMultiply,
+  identity as mathIdentity,
+  sum as matrixSum,
+  apply as matrixApply
 } from 'mathjs'
 
 
@@ -22,16 +26,17 @@ export function kabsch(setA: number[][], setB: number[][]) {
   console.log("centroids: ", centroidA, centroidB);
 
   const centroidAToOrigin = setA.map((row) => matrixSubtract(row, centroidA));
-  const centroidBToOrigin = setB.map((row) => matrixSubtract(row, centroidA));
+  const centroidBToOrigin = setB.map((row) => matrixSubtract(row, centroidB));
   console.log("centroid shifted to origin: ", centroidAToOrigin, centroidBToOrigin);
-
+  const centroidAToOriginTransposed = transpose(centroidAToOrigin);
   const centroidBToOriginTransposed = transpose(centroidBToOrigin);
-  const covariance = matrixMultiply(centroidAToOrigin, centroidBToOriginTransposed);
-  console.log(covariance);
+  console.log("centroid shifted to origin transposed: ", centroidAToOriginTransposed, centroidBToOriginTransposed);
+  const covariance = matrixMultiply(centroidAToOriginTransposed, centroidBToOrigin);
+  console.log('covariance: ', covariance);
   const { u, v, q } = SVD(covariance);
-  console.log(u);
-  console.log(v);
-  console.log(q);
+  console.log('u: ', u);
+  console.log('v: ', v);
+  console.log('q: ', q);
 
   const rotationalMatrix = matrixMultiply(u, transpose(v));
   console.log('rotational matrix: ', rotationalMatrix);
@@ -40,17 +45,17 @@ export function kabsch(setA: number[][], setB: number[][]) {
 
 export function getRigidTransformation(setA: number[][], setB: number[][]) {
   const rotationalMatrix = kabsch(setA, setB);
-  const translationVector = dotMultiply(getCentroid(setA), -1.0);
+  const translationVector = matrixAdd(matrixMultiply(rotationalMatrix, dotMultiply(getCentroid(setA), -1.0)), getCentroid(setB));
   return [rotationalMatrix, translationVector];
 }
 
+const point11 = [7, 8, 9];
+const point12 = [4, 5, 6];
 
-const point1 = [1, 2, 3];
-const point2 = [4, 5, 6];
-//const setA: Matrix = createMatrix([point1, point2]);
 
-const point3 = [1, 2, 3];
-const point4 = [4, 5, 6];
-//const setB: Matrix = createMatrix([point3, point4]);
+const point14 = [7, 8, 9];
+const point15 = [4, 5, 6];
 
-kabsch([point1, point2], [point3, point4]);
+
+const [r, t] = getRigidTransformation([point11, point12], [point14, point15]);
+console.log('input: ', point11, 'output: ', matrixAdd(matrixMultiply(r, point11), t));
