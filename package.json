@@ -7,6 +7,7 @@
     "dev": "nodemon",
     "lint": "eslint . --ext .ts",
     "test": "jest test/",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "tsc --project tsconfig.json"
   },
   "keywords": [
@@ -22,6 +23,7 @@
     "jest": "^27.5.1",
     "mathjs": "^10.4.3",
     "nodemon": "^2.0.15",
+    "prettier": "^2.6.2",
     "svd-js": "^1.1.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
