@@ -4,8 +4,6 @@
  * defines function kabsch
  */
 
-
-import { Point, PointSet } from "./typeDefinitions";
 import { getCentroid } from "./helper";
 import { SVD } from 'svd-js';
 import {
@@ -14,32 +12,30 @@ import {
   transpose,
   multiply as matrixMultiply,
   dotMultiply,
-  identity as mathIdentity,
-  sum as matrixSum,
-  apply as matrixApply
+  index,
+  subset,
+  det
 } from 'mathjs'
 
 
 export function kabsch(setA: number[][], setB: number[][]) {
   const centroidA = getCentroid(setA);
   const centroidB = getCentroid(setB);
-  console.log("centroids: ", centroidA, centroidB);
 
   const centroidAToOrigin = setA.map((row) => matrixSubtract(row, centroidA));
   const centroidBToOrigin = setB.map((row) => matrixSubtract(row, centroidB));
-  console.log("centroid shifted to origin: ", centroidAToOrigin, centroidBToOrigin);
   const centroidAToOriginTransposed = transpose(centroidAToOrigin);
-  const centroidBToOriginTransposed = transpose(centroidBToOrigin);
-  console.log("centroid shifted to origin transposed: ", centroidAToOriginTransposed, centroidBToOriginTransposed);
-  const covariance = matrixMultiply(centroidAToOriginTransposed, centroidBToOrigin);
-  console.log('covariance: ', covariance);
-  const { u, v, q } = SVD(covariance, true, true, Number.MIN_VALUE);
-  console.log('u: ', u);
-  console.log('v: ', v);
-  console.log('q: ', q);
 
-  const rotationalMatrix = matrixMultiply(u, transpose(v));
-  console.log('rotational matrix: ', rotationalMatrix);
+  const covariance = matrixMultiply(centroidAToOriginTransposed, centroidBToOrigin);
+  const { u, v } = SVD(covariance, true, true, Number.MIN_VALUE);
+  let rotationalMatrix = matrixMultiply(v, transpose(u));
+
+  const determinant = det(rotationalMatrix);
+  if (determinant < 0) {
+    const thirdColumn = subset(rotationalMatrix, index([0, 1, 2], 2));
+    rotationalMatrix = subset(rotationalMatrix, index([0, 1, 2], 2), dotMultiply(thirdColumn, -1));
+  }
+
   return rotationalMatrix;
 }
 
@@ -48,3 +44,14 @@ export function getRigidTransformation(setA: number[][], setB: number[][]) {
   const translationVector = matrixAdd(matrixMultiply(rotationalMatrix, dotMultiply(getCentroid(setA), -1.0)), getCentroid(setB));
   return [rotationalMatrix, translationVector];
 }
+
+// const point11 = [7.5, 8, 9];
+// const point12 = [4, 5, 6];
+
+
+// const point14 = [7.5, 8, 9];
+// const point15 = [4, 5, 6];
+
+
+// const [r, t] = getRigidTransformation([point11, point12], [point14, point15]);
+// console.log('input: ', point11, 'output: ', matrixAdd(matrixMultiply(r, point11), t));

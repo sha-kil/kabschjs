@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon",
-    "test": "jest ./test/",
+    "lint": "eslint . --ext .ts",
+    "test": "jest test/",
     "build": "tsc --project tsconfig.json"
   },
   "keywords": [
@@ -15,6 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",
     "jest": "^27.5.1",
     "mathjs": "^10.4.3",

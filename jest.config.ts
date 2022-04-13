@@ -8,6 +8,7 @@ const config: InitialOptionsTsJest = {
     'ts-jest': {
       // ts-jest configuration goes here
     },
-  }
+  },
+  testRegex: "test/.*.\\.(ts)$"
 }
 export default config

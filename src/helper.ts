@@ -1,13 +1,8 @@
 import {
   apply as matrixApply,
-  index as matrixIndex,
-  Matrix,
-  subset as matrixSubset,
   sum as matrixSum,
   divide as matrixDivide,
-  matrix as createMatrix,
-  size,
-  MathArray
+  size
 } from 'mathjs';
 
 
