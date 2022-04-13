@@ -33,7 +33,7 @@ export function kabsch(setA: number[][], setB: number[][]) {
   console.log("centroid shifted to origin transposed: ", centroidAToOriginTransposed, centroidBToOriginTransposed);
   const covariance = matrixMultiply(centroidAToOriginTransposed, centroidBToOrigin);
   console.log('covariance: ', covariance);
-  const { u, v, q } = SVD(covariance);
+  const { u, v, q } = SVD(covariance, true, true, Number.MIN_VALUE);
   console.log('u: ', u);
   console.log('v: ', v);
   console.log('q: ', q);
@@ -48,14 +48,3 @@ export function getRigidTransformation(setA: number[][], setB: number[][]) {
   const translationVector = matrixAdd(matrixMultiply(rotationalMatrix, dotMultiply(getCentroid(setA), -1.0)), getCentroid(setB));
   return [rotationalMatrix, translationVector];
 }
-
-const point11 = [7, 8, 9];
-const point12 = [4, 5, 6];
-
-
-const point14 = [7, 8, 9];
-const point15 = [4, 5, 6];
-
-
-const [r, t] = getRigidTransformation([point11, point12], [point14, point15]);
-console.log('input: ', point11, 'output: ', matrixAdd(matrixMultiply(r, point11), t));
