@@ -2,3 +2,5 @@ node_modules
 dist
 .vscode
 package-lock.json
+*.js.map
+test/*.js

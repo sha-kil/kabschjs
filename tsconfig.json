@@ -1,18 +1,22 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "esModuleInterop": true,
     "target": "ES5",
     "moduleResolution": "node",
     "sourceMap": true,
+    "rootDir": "src",
     "outDir": "dist"
   },
   "lib": [
     "es2015"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "jest.config.ts",
+    "tsconfig.json",
+    "test"
   ]
 }

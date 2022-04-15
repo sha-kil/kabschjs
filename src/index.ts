@@ -5,17 +5,14 @@
  * defines rigid 3D transformation between two sets of points
  */
 
-import { getCentroid } from './helper';
+import { getCentroid, checkReflection } from './helper';
 import { SVD } from 'svd-js';
 import {
   add as matrixAdd,
   subtract as matrixSubtract,
   transpose,
   multiply as matrixMultiply,
-  dotMultiply,
-  index,
-  subset,
-  det
+  dotMultiply
 } from 'mathjs';
 
 export function getRigidTransformation(setA: number[][], setB: number[][]) {
@@ -23,7 +20,7 @@ export function getRigidTransformation(setA: number[][], setB: number[][]) {
   const translationVector = matrixAdd(
     matrixMultiply(rotationalMatrix, dotMultiply(getCentroid(setA), -1.0)),
     getCentroid(setB)
-  );
+  ) as number[];
   return [rotationalMatrix, translationVector];
 }
 
@@ -42,15 +39,6 @@ function kabsch(setA: number[][], setB: number[][]) {
   const { u, v } = SVD(covariance, true, true, Number.MIN_VALUE);
   let rotationalMatrix = matrixMultiply(v, transpose(u));
 
-  const determinant = det(rotationalMatrix);
-  if (determinant < 0) {
-    const thirdColumn = subset(rotationalMatrix, index([0, 1, 2], 2));
-    rotationalMatrix = subset(
-      rotationalMatrix,
-      index([0, 1, 2], 2),
-      dotMultiply(thirdColumn, -1)
-    );
-  }
-
+  rotationalMatrix = checkReflection(rotationalMatrix);
   return rotationalMatrix;
 }

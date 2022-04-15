@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "@types/rewire": "^2.5.28",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",
@@ -24,6 +25,7 @@
     "mathjs": "^10.4.3",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
+    "rewire": "^6.0.0",
     "svd-js": "^1.1.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
