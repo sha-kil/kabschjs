@@ -62,7 +62,7 @@ describe('rigid transformation', function () {
   test.each(testTable)(
     'rigid transformation between point sets',
     function ({ output, expected }) {
-      expect(output).toEqual(expected);
+      expect(output.map((el) => Math.round(el))).toEqual(expected);
     }
   );
 
