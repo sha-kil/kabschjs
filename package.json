@@ -12,7 +12,7 @@
     "build": "tsc --project tsconfig.json"
   },
   "keywords": [
-    "kabsch"
+    "kabsch", "gpu", "rigid transformation"
   ],
   "author": "Shakil Ahmed",
   "repository": {"url": "https://github.com/sha-kil/kabschjs"},
