@@ -14,7 +14,7 @@
     "kabsch"
   ],
   "author": "sha-kil",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/offscreencanvas": "^2019.6.4",
