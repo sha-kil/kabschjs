@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon",
     "lint": "eslint . --ext .ts",
-    "test": "jest test/",
+    "test": "jest --config ./jest.config.ts",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "build": "tsc --project tsconfig.json"
   },
