@@ -2,7 +2,8 @@
   "name": "kabschjs",
   "version": "1.0.0",
   "description": "implementation of kabsch algorithm",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "nodemon",
     "lint": "eslint . --ext .ts",
@@ -13,7 +14,8 @@
   "keywords": [
     "kabsch"
   ],
-  "author": "sha-kil",
+  "author": "Shakil Ahmed",
+  "repository": {"url": "https://github.com/sha-kil/kabschjs"},
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^27.4.1",
