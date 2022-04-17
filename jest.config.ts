@@ -9,6 +9,7 @@ const config: InitialOptionsTsJest = {
       // ts-jest configuration goes here
     },
   },
-  testRegex: "test/.*.\\.(ts)$"
+  testRegex: "test/.*.\\.(ts)$",
+  "coverageProvider": "v8",
 }
 export default config
