@@ -17,9 +17,12 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "@types/offscreencanvas": "^2019.6.4",
     "@types/rewire": "^2.5.28",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.13.0",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
@@ -34,5 +37,10 @@
     "mathjs": "^10.4.3",
     "node-gyp": "^9.0.0",
     "svd-js": "^1.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

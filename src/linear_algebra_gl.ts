@@ -1,7 +1,20 @@
-import { GPU } from 'gpu.js';
-// import { matrix } from 'mathjs';
-// import { performance } from 'perf_hooks';
+/**
+ * @fileOverview
+ * optimizes linear algebra functions with gpu
+ */
 
+import { GPU } from 'gpu.js';
+
+
+
+
+
+/**
+ *
+ * @param matrixA
+ * @param matrixB
+ * @returns
+ */
 export function matrixMultiply(matrixA: number[][], matrixB: number[][]) {
   const matrixARow = matrixA.length;
   const matrixACol = matrixA[0].length;

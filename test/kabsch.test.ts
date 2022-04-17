@@ -3,7 +3,9 @@ import { SVD } from 'svd-js';
 import { add as matrixAdd, multiply as matrixMultiply } from 'mathjs';
 
 import rewire from 'rewire';
-const checkReflection = rewire('../dist/helper.js').__get__('checkReflection');
+const checkOrientation = rewire('../dist/geometry_helper.js').__get__(
+  'checkOrientation'
+);
 
 describe('rigid transformation', function () {
   const numberOfPoints = 10;
@@ -83,7 +85,7 @@ describe('rigid transformation', function () {
     // making sure rotational matrix is orthogonal
     const { u, v } = SVD(rotationalMat, true, true, Number.MIN_VALUE);
     rotationalMat = matrixMultiply(u, v);
-    rotationalMat = checkReflection(rotationalMat);
+    rotationalMat = checkOrientation(rotationalMat);
 
     const pointSet3 = getTransformedPoints(
       pointSet1,

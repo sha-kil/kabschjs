@@ -1,11 +1,11 @@
 /**
  * @fileOverView
  * project entry point
- * defines function kabsch https://en.wikipedia.org/wiki/Kabsch_algorithm
  * defines rigid 3D transformation between two sets of points
  */
 
-import { getCentroid, checkReflection, checkValidPointSets } from './helper';
+import { getCentroid, checkOrientation } from './geometry_helper';
+import { checkValidPointSets } from './input_helper';
 import { matrixMultiply } from './linear_algebra_gl';
 import { SVD } from 'svd-js';
 import {
@@ -15,6 +15,16 @@ import {
   dotMultiply
 } from 'mathjs';
 
+
+
+
+
+/**
+ * entry function for the module.
+ * @param setA 
+ * @param setB 
+ * @returns 4x3 rigid transformation matrix
+ */
 export function getRigidTransformation(setA: number[][], setB: number[][]) {
   const validSize = checkValidPointSets(setA, setB);
   if (!validSize) {
@@ -24,6 +34,16 @@ export function getRigidTransformation(setA: number[][], setB: number[][]) {
   return getTransformation(setA, setB);
 }
 
+
+
+
+/**
+ * Given two point sets having one to one correspondence for each point pair,
+ * returns a rigid transformation matrix.
+ * @param setA
+ * @param setB
+ * @returns 4x3 matrix
+ */
 function getTransformation(setA: number[][], setB: number[][]) {
   const rotationalMatrix = kabsch(setA, setB);
   const unRotatedTranslation = [
@@ -44,6 +64,16 @@ function getTransformation(setA: number[][], setB: number[][]) {
   return [rotationalMatrix, translationVector];
 }
 
+
+
+
+/**
+ * implements kabsch algorithm to find rotation matrix between two point sets
+ * https://en.wikipedia.org/wiki/Kabsch_algorithm
+ * @param setA
+ * @param setB
+ * @returns 3x3 rotation matrix
+ */
 function kabsch(setA: number[][], setB: number[][]) {
   const centroidA = getCentroid(setA);
   const centroidB = getCentroid(setB);
@@ -59,6 +89,6 @@ function kabsch(setA: number[][], setB: number[][]) {
   const { u, v } = SVD(covariance, true, true, Number.MIN_VALUE);
   let rotationalMatrix = matrixMultiply(v, transpose(u));
 
-  rotationalMatrix = checkReflection(rotationalMatrix);
+  rotationalMatrix = checkOrientation(rotationalMatrix);
   return rotationalMatrix;
 }
