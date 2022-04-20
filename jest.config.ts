@@ -10,6 +10,7 @@ const config: InitialOptionsTsJest = {
     },
   },
   testRegex: "test/.*.\\.(ts)$",
-  "coverageProvider": "v8",
+  coverageProvider: "v8",
+  maxWorkers: "2",
 }
 export default config
