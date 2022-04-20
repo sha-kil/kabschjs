@@ -1,6 +1,6 @@
 import { getRigidTransformation } from '../src/index';
 import { SVD } from 'svd-js';
-import { add as matrixAdd, rotate, transpose} from 'mathjs';
+import { add as matrixAdd } from 'mathjs';
 import { matrixMultiply } from '../src/linear_algebra_gl';
 
 import rewire from 'rewire';
