@@ -52,7 +52,7 @@ describe('rigid transformation', function () {
         translation
       ).valueOf() as number[];
 
-      const tableRow = { output: transformed, expected: point2 };
+      const tableRow = { output: transformed.map((el) => Math.round(el)), expected: point2 };
       testTable.push(tableRow);
     }
 
@@ -64,10 +64,11 @@ describe('rigid transformation', function () {
   const [rotation, translation] = getRigidTransformation(pointSet1, pointSet2);
 
   const testTable = generateTestTable(pointSet1, pointSet2);
+  console.log(testTable); // eslint-disable-line
   test.each(testTable)(
     'rigid transformation between point sets',
     function ({ output, expected }) {
-      expect(output.map((el) => Math.round(el))).toEqual(expected);
+      expect(output).toEqual(expected);
     }
   );
 
