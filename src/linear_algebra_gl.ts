@@ -30,7 +30,7 @@ export function matrixMultiply(matrixA: number[][], matrixB: number[][]) {
       }
       return sum;
     })
-    .setOutput([matrixARow, matrixBCol] as number[]);
+    .setOutput([matrixBCol, matrixARow]);
 
   let multiplication = matrixMultiplyGPU(
     matrixA,
