@@ -53,7 +53,7 @@ describe('rigid transformation', function () {
         translation
       ).valueOf() as number[];
 
-      const tableRow = { output: transformed, expected: point2 };
+      const tableRow = { output: transformed.map(el => Math.round(el)), expected: point2 };
       testTable.push(tableRow);
     }
 

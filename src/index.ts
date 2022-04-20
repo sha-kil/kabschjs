@@ -48,11 +48,11 @@ function getTransformation(setA: number[][], setB: number[][]) {
   const rotationalMatrix = kabsch(setA, setB);
   const unRotatedTranslation = [
     dotMultiply(getCentroid(setA), -1.0)
-  ] as number[][];
+  ].valueOf() as number[];
 
   const rotatedTranslation = matrixMultiply(
     rotationalMatrix,
-    transpose(unRotatedTranslation)
+    unRotatedTranslation.map(el=>[el])
   ).flat();
   const pointSetBCentroid = getCentroid(setB);
 
