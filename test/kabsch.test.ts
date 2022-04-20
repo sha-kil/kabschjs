@@ -1,6 +1,7 @@
 import { getRigidTransformation } from '../src/index';
 import { SVD } from 'svd-js';
-import { add as matrixAdd, multiply as matrixMultiply } from 'mathjs';
+import { add as matrixAdd, rotate, transpose} from 'mathjs';
+import { matrixMultiply } from '../src/linear_algebra_gl';
 
 import rewire from 'rewire';
 const checkOrientation = rewire('../dist/geometry_helper.js').__get__(
@@ -15,8 +16,9 @@ describe('rigid transformation', function () {
     rotationMatrix: number[][],
     translationVec: number[]
   ) {
+    const rotatedPoint = matrixMultiply(rotationMatrix, point.map(el=>[el])).flat();
     return matrixAdd(
-      matrixMultiply(rotationMatrix, point),
+      rotatedPoint,
       translationVec
     ).valueOf() as number[];
   }
@@ -44,8 +46,9 @@ describe('rigid transformation', function () {
     for (let i = 0; i < numberOfPoints; i++) {
       const point1 = pointSet1[i];
       const point2 = pointSet2[i];
+      const rotatedPoint = matrixMultiply(rotation as number[][], point1.map(el=>[el])).flat()
       const transformed = matrixAdd(
-        matrixMultiply(rotation, point1),
+        rotatedPoint,
         translation
       ).valueOf() as number[];
 
