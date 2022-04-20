@@ -47,7 +47,7 @@ describe('rigid transformation', function () {
       const point1 = pointSet1[i];
       const point2 = pointSet2[i];
       const rotatedPoint = matrixMultiply(rotation as number[][], point1.map(el=>[el])).flat()
-      console.log(rotatedPoint); // eslint-disable-line
+
       const transformed = matrixAdd(
         rotatedPoint,
         translation
@@ -63,10 +63,9 @@ describe('rigid transformation', function () {
   const pointSet1 = generatePoints(numberOfPoints);
   const pointSet2 = [...pointSet1];
   const [rotation, translation] = getRigidTransformation(pointSet1, pointSet2);
-  console.log(rotation, translation); // eslint-disable-line
 
   const testTable = generateTestTable(pointSet1, pointSet2);
-  console.log(testTable); // eslint-disable-line
+
   test.each(testTable)(
     'rigid transformation between point sets',
     function ({ output, expected }) {
