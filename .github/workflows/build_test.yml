@@ -13,8 +13,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build_test:
+  # build the npm project. Generates js files by compiling ts files
+  build:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -22,6 +22,7 @@ jobs:
       # sets up node environment
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '14.6.0'
       - run: npm install
-      - run: npm test
+      - run: npm run build
+      - run: npm run test
