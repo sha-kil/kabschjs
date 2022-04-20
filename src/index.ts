@@ -46,18 +46,18 @@ export function getRigidTransformation(setA: number[][], setB: number[][]) {
  */
 function getTransformation(setA: number[][], setB: number[][]) {
   const rotationalMatrix = kabsch(setA, setB);
-  const unRotatedTranslation = [
-    dotMultiply(getCentroid(setA), -1.0)
-  ] as number[][];
+  const unRotatedTranslation = dotMultiply(getCentroid(setA), -1.0).valueOf() as number[];
+  const unRotatedTranslationTransposed = unRotatedTranslation.map(el=>[el]);
 
   const rotatedTranslation = matrixMultiply(
     rotationalMatrix,
-    transpose(unRotatedTranslation)
-  ).flat();
+    unRotatedTranslationTransposed
+  );
+  const rotatedTranslationPoint = rotatedTranslation.flat();
   const pointSetBCentroid = getCentroid(setB);
 
   const translationVector = matrixAdd(
-    rotatedTranslation,
+    rotatedTranslationPoint,
     pointSetBCentroid
   ) as number[];
 

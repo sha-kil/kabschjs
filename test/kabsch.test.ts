@@ -1,6 +1,6 @@
 import { getRigidTransformation } from '../src/index';
 import { SVD } from 'svd-js';
-import { add as matrixAdd, rotate, transpose} from 'mathjs';
+import { add as matrixAdd } from 'mathjs';
 import { matrixMultiply } from '../src/linear_algebra_gl';
 
 import rewire from 'rewire';
@@ -47,12 +47,13 @@ describe('rigid transformation', function () {
       const point1 = pointSet1[i];
       const point2 = pointSet2[i];
       const rotatedPoint = matrixMultiply(rotation as number[][], point1.map(el=>[el])).flat()
+
       const transformed = matrixAdd(
         rotatedPoint,
         translation
       ).valueOf() as number[];
 
-      const tableRow = { output: transformed, expected: point2 };
+      const tableRow = { output: transformed.map(el => Math.round(el)), expected: point2 };
       testTable.push(tableRow);
     }
 
@@ -64,10 +65,11 @@ describe('rigid transformation', function () {
   const [rotation, translation] = getRigidTransformation(pointSet1, pointSet2);
 
   const testTable = generateTestTable(pointSet1, pointSet2);
+
   test.each(testTable)(
     'rigid transformation between point sets',
     function ({ output, expected }) {
-      expect(output.map((el) => Math.round(el))).toEqual(expected);
+      expect(output).toEqual(expected);
     }
   );
 
