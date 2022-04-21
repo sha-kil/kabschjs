@@ -25,4 +25,7 @@ jobs:
           node-version: '14.6.0'
       - run: npm install
       - run: npm run build
-      - run: npm run test
+    test:
+      needs: build
+      steps:
+        - run: npm run test
