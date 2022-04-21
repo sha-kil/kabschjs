@@ -26,11 +26,7 @@ import {
  * @returns 4x3 rigid transformation matrix
  */
 export function getRigidTransformation(setA: number[][], setB: number[][]) {
-  const validSize = checkValidPointSets(setA, setB);
-  if (!validSize) {
-    throw 'given parameters for getRigidTransformation were wrong!';
-  }
-
+  checkValidPointSets(setA, setB);
   return getTransformation(setA, setB);
 }
 

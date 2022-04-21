@@ -59,5 +59,12 @@ export function checkOrientation(rotationalMatrix: number[][]) {
     );
   }
 
+  //?getting -0 form dotMultiply is very weird
+  for(let i = 0;i<rotationalMatrix.length;i++) {
+    for(let j = 0;j<rotationalMatrix[i].length;j++) {
+      rotationalMatrix[i][j] = rotationalMatrix[i][j] == 0 ? 0 : rotationalMatrix[i][j];
+    }
+  }
+
   return rotationalMatrix;
 }
