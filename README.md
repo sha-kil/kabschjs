@@ -1,4 +1,4 @@
-![example workflow](https://github.com/sha-kil/kabschjs/actions/workflows/build_test.yml/badge.svg?branch=master)<br>
+![example workflow](https://github.com/sha-kil/kabschjs/actions/workflows/build.yml/badge.svg?branch=master)<br>
 # kabschjs
 
 A simple library to compute rigid transformation matrix between two point sets.
