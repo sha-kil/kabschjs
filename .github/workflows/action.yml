@@ -17,3 +17,5 @@ jobs:
     uses: ./.github/workflows/build.yml
   test:
     uses: ./.github/workflows/test.yml
+  coverage:
+    uses: ./.github/workflows/coverage.yml
